@@ -1,55 +1,50 @@
-import React, {Component} from 'react';
+import React, {useState} from 'react';
 import {StyleSheet, View, Text, TouchableOpacity, Alert} from 'react-native';
 
 import Active from '../components/Active';
 
-export default class Survey extends Component {
-  state = {
-    checked: true,
-  };
-  render() {
-    return (
-      <>
-        <View style={styles.container}>
-          <View style={styles.qcon}>
-            <Text style={styles.qnum}>Q1</Text>
-            <Text style={styles.qtext}>운동 목적을 알려줄래요?</Text>
-            <Text style={styles.qtext}>(중복선택 가능)</Text>
-          </View>
-          <View style={styles.ccon}>
-            {[
-              '근육량 증가',
-              '다이어트',
-              '근력증가(스트렝스)',
-              '몸매관리',
-              '홈트레이닝/맨몸',
-              '질환/통증관리',
-            ].map((item) => {
-              return (
-                <TouchableOpacity
-                  style={styles.citem}
-                  onPress={() => {
-                    Alert.alert('haha');
-                  }}>
-                  <View style={styles.checkbox} />
-                  <Text style={styles.ctext}>{item}</Text>
-                </TouchableOpacity>
-              );
-            })}
-          </View>
-          <View style={styles.btm}>
-            <View style={{flexDirection: 'row'}}>
-              <View style={styles.now} />
-              <View style={styles.all} />
-              <View style={styles.all} />
-              <View style={styles.all} />
-            </View>
-          </View>
-          <Active />
+export default function Survey() {
+  const [answers, setAnswer] = useState([]);
+  // setAnswer([...answers,id])
+  return (
+    <>
+      <View style={styles.container}>
+        <View style={styles.qcon}>
+          <Text style={styles.qnum}>Q1</Text>
+          <Text style={styles.qtext}>운동 목적을 알려줄래요?</Text>
+          <Text style={styles.qtext}>(중복선택 가능)</Text>
         </View>
-      </>
-    );
-  }
+        <View style={styles.ccon}>
+          {[
+            '근육량 증가',
+            '다이어트',
+            '근력증가(스트렝스)',
+            '몸매관리',
+            '홈트레이닝/맨몸',
+            '질환/통증관리',
+          ].map((item) => {
+            return (
+              <TouchableOpacity
+                style={styles.citem}
+                onPress={() => {
+                  Alert.alert('haha');
+                }}>
+                <View style={styles.checkbox} />
+                <Text style={styles.ctext}>{item}</Text>
+              </TouchableOpacity>
+            );
+          })}
+        </View>
+        <View style={styles.btm}>
+          <View style={styles.now} />
+          <View style={styles.all} />
+          <View style={styles.all} />
+          <View style={styles.all} />
+        </View>
+        <Active />
+      </View>
+    </>
+  );
 }
 
 const styles = StyleSheet.create({
@@ -95,8 +90,9 @@ const styles = StyleSheet.create({
   },
   btm: {
     flex: 1,
-    justifyContent: 'flex-end',
-    alignItems: 'center',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'flex-end',
   },
   all: {
     backgroundColor: '#e8e8e8',

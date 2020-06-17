@@ -16,10 +16,10 @@ export default function App() {
   );
   /*
   <Login />
-    <Loading />
-    <Main />
-    <Wating />
-    <Routine />
-    <Description />
+  <Loading />
+  <Main />
+  <Wating />
+  <Routine />
+  <Description />
     */
 }
