@@ -15,7 +15,7 @@ export default function Login() {
   const [user, setUser] = useState();
   const [password, setPassword] = useState();
   // 입력되는 순간에 validation
-  // 클릭하는 순간에 setstat에
+  // 클릭하는 순간에 setstate에
   // const loginHandler = () => {};
   return (
     <>
@@ -52,7 +52,7 @@ export default function Login() {
             style={styles.button}
             onPress={() => {
               // Alert.alert(user, password);
-              fetch(API_ADDRESS, {
+              fetch(API_ADDRESS + '/auth', {
                 method: 'POST',
                 headers: {
                   Accept: 'application/json',
@@ -66,7 +66,10 @@ export default function Login() {
                 .then((res) => res.json())
                 .then((json) => {
                   JSON.stringify(json).includes('Authorization')
-                    ? Alert.alert('메인화면으로 이동')
+                    ? Alert.alert(
+                        '메인화면으로 이동 \n' + '토큰을 기기에 저장',
+                        json['Authorization'],
+                      )
                     : Alert.alert('로그인에 실패하였습니다.');
                 });
             }}>
