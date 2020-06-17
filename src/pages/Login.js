@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {useState} from 'react';
 import {
   StyleSheet,
   Alert,
@@ -9,7 +9,14 @@ import {
   TouchableOpacity,
 } from 'react-native';
 
+import {API_ADDRESS} from '../settings';
+
 export default function Login() {
+  const [user, setUser] = useState();
+  const [password, setPassword] = useState();
+  // 입력되는 순간에 validation
+  // 클릭하는 순간에 setstat에
+  // const loginHandler = () => {};
   return (
     <>
       <StatusBar barStyle="light-content" />
@@ -23,13 +30,40 @@ export default function Login() {
           </Text>
         </View>
         <View style={styles.cnt}>
-          <TextInput style={styles.input} placeholder={'휴대폰 번호'} />
+          <Text style={styles.title}>휴대폰 번호</Text>
+          <TextInput
+            style={styles.input}
+            placeholder={'( - 제외하고 입력 )'}
+            keyboardType={'number-pad'}
+            onChangeText={(text) => {
+              setUser(text);
+            }}
+          />
+          <Text style={styles.title}>비밀번호</Text>
           <TextInput
             secureTextEntry={true}
             style={styles.input}
-            placeholder={'비밀번호'}
+            placeholder={'( 입력해주세요. )'}
+            onChangeText={(text) => {
+              setPassword(text);
+            }}
           />
-          <TouchableOpacity style={styles.button}>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => {
+              // Alert.alert(user, password);
+              fetch(API_ADDRESS, {
+                method: 'POST',
+                headers: {
+                  Accept: 'application/json',
+                  'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                  user,
+                  password,
+                }),
+              });
+            }}>
             <Text style={styles.buttonfont}>로그인</Text>
           </TouchableOpacity>
         </View>
@@ -97,23 +131,31 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     alignItems: 'center',
   },
+  title: {
+    fontSize: 17,
+    margin: 7,
+    color: 'white',
+    fontWeight: 'bold',
+  },
   input: {
     width: 300,
     height: 50,
     borderRadius: 10,
+    borderColor: '#aaaaaa',
+    borderWidth: 1,
     backgroundColor: 'white',
     margin: 5,
     paddingHorizontal: 15,
     fontSize: 15,
   },
   button: {
-    width: 200,
-    height: 40,
+    width: 300,
+    height: 45,
     borderRadius: 10,
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: '#35b3bc',
-    margin: 10,
+    margin: 25,
   },
   buttonfont: {
     fontSize: 20,

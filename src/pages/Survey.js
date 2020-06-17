@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {StyleSheet, View, Text, TouchableOpacity, Alert} from 'react-native';
 
-import Active from './Active';
+import Active from '../components/Active';
 
 export default class Survey extends Component {
   state = {
