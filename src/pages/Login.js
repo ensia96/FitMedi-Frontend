@@ -62,7 +62,13 @@ export default function Login() {
                   user,
                   password,
                 }),
-              });
+              })
+                .then((res) => res.json())
+                .then((json) => {
+                  JSON.stringify(json).includes('Authorization')
+                    ? Alert.alert('메인화면으로 이동')
+                    : Alert.alert('로그인에 실패하였습니다.');
+                });
             }}>
             <Text style={styles.buttonfont}>로그인</Text>
           </TouchableOpacity>
